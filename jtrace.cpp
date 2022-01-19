@@ -1,7 +1,7 @@
 /*
  * John Carter
  * Created: 2022/01/19 10:16:41
- * Last modified: 2022/01/19 13:57:40
+ * Last modified: 2022/01/19 15:34:20
  */
 
 #include "jtrace.h"
@@ -25,6 +25,12 @@ int read_trace(std::string output_file) {
         if ( trace_pipe_stream.is_open() && !trace_pipe_stream.eof() ) {
             std::getline(trace_pipe_stream, data);
             write_trace(output_file, data);
+        } else if (!trace_pipe_stream.is_open()) {
+            std::cerr << error << "The trace pipe stream isn't open" << std::endl;
+            exit(1);
+        } else {
+            std::cerr << error << "EOF encountered in trace pipe stream" << std::endl;
+            exit(1);
         }
     }
 
@@ -36,7 +42,7 @@ int write_trace(std::string output_file, std::string data) {
     int rc = 0;
     std::string syscall_record;
 
-    output_stream.open(output_file, std::ios_base::app);
+    output_stream.open(output_file, std::fstream::out | std::fstream::app);
     syscall_record = format_record(data);
     output_stream << syscall_record << "\n";
     output_stream.close();
@@ -90,8 +96,12 @@ int main(int argc, char **argv) {
     } 
     
     open_trace();
-    read_trace(argv[1]);
-    close_trace();
+    if (!trace_pipe_stream.is_open()) {
+        std::cerr << error << "Failed to open trace pipe stream. You may need root privileges." << std::endl;
+    } else {
+        read_trace(argv[1]);
+        close_trace();
+    }
 
     return 0;
 }
