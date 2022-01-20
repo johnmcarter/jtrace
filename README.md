@@ -22,29 +22,29 @@ Last tested on Ubuntu 20.04, but should work for most Linux distributions.
 This tool logs all system calls by connecting to the trace pipe located in
 ```/sys/kernel/debug/tracing/trace_pipe```. The raw output of this is shown below:
 ```
- cat trace
- tracer: function
+cat trace
+tracer: function
 
-                              _-----=> irqs-off
-                             / _----=> need-resched
-                            | / _---=> hardirq/softirq
-                            || / _--=> preempt-depth
-                            ||| /     delay
-           TASK-PID   CPU#  ||||    TIMESTAMP  FUNCTION
-              | |       |   ||||       |         |
-          <idle>-0     [001] d...    23.695208: _raw_spin_lock_irqsave <-hrtimer_next_event_wi...
-          <idle>-0     [001] d...    23.695209: __hrtimer_next_event_base <-hrtimer_next_event...
-          <idle>-0     [001] d...    23.695210: __next_base <-__hrtimer_next_event_base
-          <idle>-0     [001] d...    23.695211: __hrtimer_next_event_base <-hrtimer_next_event...
-          <idle>-0     [001] d...    23.695212: __next_base <-__hrtimer_next_event_base
-          <idle>-0     [001] d...    23.695213: __next_base <-__hrtimer_next_event_base
-          <idle>-0     [001] d...    23.695214: _raw_spin_unlock_irqrestore <-hrtimer_next_eve...
-          <idle>-0     [001] d...    23.695215: get_iowait_load <-menu_select
-          <idle>-0     [001] d...    23.695217: tick_nohz_tick_stopped <-menu_select
-          <idle>-0     [001] d...    23.695218: tick_nohz_idle_stop_tick <-do_idle
-          <idle>-0     [001] d...    23.695219: rcu_idle_enter <-do_idle
-          <idle>-0     [001] d...    23.695220: call_cpuidle <-do_idle
-          <idle>-0     [001] d...    23.695221: cpuidle_enter <-call_cpuidle
+                    _-----=> irqs-off
+                    / _----=> need-resched
+                | / _---=> hardirq/softirq
+                || / _--=> preempt-depth
+                ||| /     delay
+TASK-PID   CPU#  ||||    TIMESTAMP  FUNCTION
+    | |       |   ||||       |         |
+<idle>-0     [001] d...    23.695208: _raw_spin_lock_irqsave <-hrtimer_next_event_wi...
+<idle>-0     [001] d...    23.695209: __hrtimer_next_event_base <-hrtimer_next_event...
+<idle>-0     [001] d...    23.695210: __next_base <-__hrtimer_next_event_base
+<idle>-0     [001] d...    23.695211: __hrtimer_next_event_base <-hrtimer_next_event...
+<idle>-0     [001] d...    23.695212: __next_base <-__hrtimer_next_event_base
+<idle>-0     [001] d...    23.695213: __next_base <-__hrtimer_next_event_base
+<idle>-0     [001] d...    23.695214: _raw_spin_unlock_irqrestore <-hrtimer_next_eve...
+<idle>-0     [001] d...    23.695215: get_iowait_load <-menu_select
+<idle>-0     [001] d...    23.695217: tick_nohz_tick_stopped <-menu_select
+<idle>-0     [001] d...    23.695218: tick_nohz_idle_stop_tick <-do_idle
+<idle>-0     [001] d...    23.695219: rcu_idle_enter <-do_idle
+<idle>-0     [001] d...    23.695220: call_cpuidle <-do_idle
+<idle>-0     [001] d...    23.695221: cpuidle_enter <-call_cpuidle
 ```
 Figure credits: https://embeddedbits.org/tracing-the-linux-kernel-with-ftrace/
 
