@@ -1,7 +1,7 @@
 /*
  * John Carter
  * Created: 2022/01/19 10:16:41
- * Last modified: 2022/01/20 12:22:44
+ * Last modified: 2022/01/20 12:47:33
  */
 
 #include "jtrace.h"
@@ -67,8 +67,6 @@ std::string format_record(std::string data) {
     char d2 = '-';
     std::ostringstream os;
     std::string formatted_record = "";
-    std::cout << data << std::endl;
-    exit(1);
 
     std::vector<std::string> syscall_record = split(data, d1);
 
@@ -90,9 +88,9 @@ std::string format_record(std::string data) {
 }
 
 
-void print_usage(char **argv) {
+void print_usage() {
     std::cout << "USAGE: " << std::endl;
-    std::cout << argv[0] << " <output file>" << std::endl;
+    std::cout << "jtrace <output file>" << std::endl;
 }
 
 
@@ -100,21 +98,25 @@ int main(int argc, char **argv) {
     std::cout << std::endl;
     std::cout << "\033[1;36mjtrace: the new and improved syscall-sensor.\033[0m" << std::endl << std::endl;
 
+
     if (argc == 2) {
-        std::cout << info << "You chose to print to " << argv[1] << std::endl;
+        std::string arg1(argv[1]);
+        if (arg1 == "-h" || arg1 == "--help") {
+            print_usage();
+        } else {
+            std::cout << info << "You chose to print to " << arg1 << std::endl;
+            open_trace();
+            if (!trace_pipe_stream.is_open()) {
+                std::cerr << error << "Failed to open trace pipe stream. Are you root?" << std::endl;
+            } else {
+                read_trace(arg1);
+                close_trace();
+            }
+        }
     } else {
         std::cerr << error << "Incorrect number of input arguments" << std::endl << std::endl;
-        print_usage(argv);
-        exit(1);
+        print_usage();
     } 
-    
-    open_trace();
-    if (!trace_pipe_stream.is_open()) {
-        std::cerr << error << "Failed to open trace pipe stream. You may need root privileges." << std::endl;
-    } else {
-        read_trace(argv[1]);
-        close_trace();
-    }
 
     return 0;
 }
