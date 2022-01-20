@@ -20,7 +20,7 @@ Last tested on Ubuntu 20.04, but should work for most Linux distributions.
 
 ## How It Works
 This tool logs all system calls by connecting to the trace pipe located in
-```/sys/kernel/debug/tracing/trace_pipe```. The raw output of the ```trace_pipe``` is shown below:
+```/sys/kernel/debug/tracing/trace_pipe```. The raw output of ```trace_pipe``` is shown below:
 ```
 cat trace
 tracer: function
