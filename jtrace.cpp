@@ -1,7 +1,7 @@
 /*
  * John Carter
  * Created: 2022/01/19 10:16:41
- * Last modified: 2022/01/19 15:34:20
+ * Last modified: 2022/01/20 08:37:35
  */
 
 #include "jtrace.h"
@@ -38,8 +38,8 @@ int read_trace(std::string output_file) {
 }
 
 
-int write_trace(std::string output_file, std::string data) {
-    int rc = 0;
+void write_trace(std::string output_file, std::string data) {
+    // Write a well-formed trace to the output stream
     std::string syscall_record;
 
     output_stream.open(output_file, std::fstream::out | std::fstream::app);
@@ -47,7 +47,16 @@ int write_trace(std::string output_file, std::string data) {
     output_stream << syscall_record << "\n";
     output_stream.close();
 
-    return rc;
+}
+
+
+void write_bad_trace(std::string data) {
+    // Write a well-formed trace to the output stream
+
+    bad_output_stream.open(error_log, std::fstream::out | std::fstream::app);
+    bad_output_stream << data << "\n";
+    bad_output_stream.close();
+
 }
 
 
@@ -71,6 +80,8 @@ std::string format_record(std::string data) {
 
         os << process_name << "," << pid << "," << timestamp << "," << number;
         formatted_record = os.str();
+    } else {
+        write_bad_trace(data);
     }
 
     return formatted_record;

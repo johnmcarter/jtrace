@@ -1,7 +1,7 @@
 /*
  * John Carter
  * Created: 2022/01/19 10:16:41
- * Last modified: 2022/01/19 13:46:41
+ * Last modified: 2022/01/20 08:34:42
  */
 
 #pragma once
@@ -31,7 +31,10 @@ static const std::string FILTER_SYS_EXIT =   FTRACE_DIR + EVENTS_DIR + RAW_SYSCA
 static const uint_fast8_t MIN_LENGTH = 50; 
 
 std::ifstream trace_pipe_stream;
-std::ofstream output_stream;
+std::ofstream output_stream; // for well-formed traces
+std::ofstream bad_output_stream; // for ill-formed traces
+
+std::string error_log = "logs/trace_errors.log";
 
 
 const std::string error = "[\033[31mERROR\033[0m] ";
@@ -41,7 +44,8 @@ const std::string info = "[\033[32mINFO\033[0m] ";
 void open_trace();
 void close_trace();
 int read_trace(std::string output_file);
-int write_trace(std::string output_file, std::string data);
+void write_trace(std::string output_file, std::string data);
+void write_bad_trace(std::string data);
 void print_usage(char **argv);
 std::string format_record(std::string data);
 std::vector<std::string> split(std::string str, char delimiter);
