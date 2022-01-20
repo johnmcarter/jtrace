@@ -1,61 +1,30 @@
 /*
  * John Carter
  * Created: 2022/01/19 10:16:41
- * Last modified: 2022/01/20 12:47:33
+ * Last modified: 2022/01/20 15:46:38
  */
 
 #include "jtrace.h"
 
 
-void open_trace() {
-    trace_pipe_stream.open( FTRACE_DIR + TRACE_PIPE );
-}
-
-
-void close_trace() {
-    trace_pipe_stream.close();
-}
-
-
-int read_trace(std::string output_file) {
-    int rc = 0;
+void read_trace(std::string output_file) {
+    // Read traces from trace_pipe variable and send them to be logged
     std::string data = "";
 
-    while (1) {
-        if ( trace_pipe_stream.is_open() && !trace_pipe_stream.eof() ) {
-            std::getline(trace_pipe_stream, data);
-            write_trace(output_file, data);
-        } else if (!trace_pipe_stream.is_open()) {
-            std::cerr << error << "The trace pipe stream isn't open" << std::endl;
-            exit(1);
-        } else {
-            std::cerr << error << "EOF encountered in trace pipe stream" << std::endl;
-            exit(1);
-        }
+    while (trace_pipe_stream.is_open() && !trace_pipe_stream.eof() ) {
+        std::getline(trace_pipe_stream, data);
+        write_trace(output_file, data);
     }
-
-    return rc;
+    
 }
 
 
 void write_trace(std::string output_file, std::string data) {
     // Write a well-formed trace to the output stream
-    std::string syscall_record;
 
     output_stream.open(output_file, std::fstream::out | std::fstream::app);
-    syscall_record = format_record(data);
-    output_stream << syscall_record << "\n";
+    output_stream << format_record(data) << "\n";
     output_stream.close();
-
-}
-
-
-void write_bad_trace(std::string data) {
-    // Write a well-formed trace to the output stream
-
-    bad_output_stream.open(error_log, std::fstream::out | std::fstream::app);
-    bad_output_stream << data << "\n";
-    bad_output_stream.close();
 
 }
 
@@ -66,25 +35,21 @@ std::string format_record(std::string data) {
     char d1 = ' ';
     char d2 = '-';
     std::ostringstream os;
-    std::string formatted_record = "";
 
     std::vector<std::string> syscall_record = split(data, d1);
 
     if (syscall_record.size() == 13) {
         std::vector<std::string> name_and_pid = split(syscall_record.at(0), d2);
-        std::string process_name = name_and_pid.at(0);
-        std::string pid = name_and_pid.at(1);
         std::string timestamp = syscall_record.at(3);
-        timestamp.erase(std::remove(timestamp.begin(), timestamp.end(), ':'), timestamp.end());
         std::string number = syscall_record.at(6);
+        timestamp.erase(std::remove(timestamp.begin(), timestamp.end(), ':'), timestamp.end());
 
-        os << process_name << "," << pid << "," << timestamp << "," << number;
-        formatted_record = os.str();
+        os << name_and_pid.at(0) << "," << name_and_pid.at(1) << "," << timestamp << "," << number;
+        return os.str();
     } else {
-        write_bad_trace(data);
+        return "ERROR: " + data;
     }
 
-    return formatted_record;
 }
 
 
@@ -105,12 +70,14 @@ int main(int argc, char **argv) {
             print_usage();
         } else {
             std::cout << info << "You chose to print to " << arg1 << std::endl;
-            open_trace();
-            if (!trace_pipe_stream.is_open()) {
-                std::cerr << error << "Failed to open trace pipe stream. Are you root?" << std::endl;
-            } else {
+
+            // open the trace pipe stream and try to read from it
+            trace_pipe_stream.open( FTRACE_DIR + TRACE_PIPE );
+            if (trace_pipe_stream.is_open()) {
                 read_trace(arg1);
-                close_trace();
+                trace_pipe_stream.close();
+            } else {
+                std::cerr << error << "Failed to open trace pipe stream. Are you root?" << std::endl;
             }
         }
     } else {
