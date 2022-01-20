@@ -25,13 +25,13 @@ This tool logs all system calls by connecting to the trace pipe located in
 cat trace
 tracer: function
 
-                    _-----=> irqs-off
+                     _-----=> irqs-off
                     / _----=> need-resched
-                | / _---=> hardirq/softirq
-                || / _--=> preempt-depth
-                ||| /     delay
-TASK-PID   CPU#  ||||    TIMESTAMP  FUNCTION
-    | |       |   ||||       |         |
+                   | / _---=> hardirq/softirq
+                   || / _--=> preempt-depth
+                   ||| /     delay
+ TASK-PID   CPU#   ||||    TIMESTAMP  FUNCTION
+    | |       |    ||||       |         |
 <idle>-0     [001] d...    23.695208: _raw_spin_lock_irqsave <-hrtimer_next_event_wi...
 <idle>-0     [001] d...    23.695209: __hrtimer_next_event_base <-hrtimer_next_event...
 <idle>-0     [001] d...    23.695210: __next_base <-__hrtimer_next_event_base
