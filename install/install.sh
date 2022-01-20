@@ -2,7 +2,7 @@
 
 # Author: John Carter
 # Created: 2021/12/15 18:47:43
-# Last modified: 2022/01/20 08:30:31
+# Last modified: 2022/01/20 12:26:57
 # Install jtrace on a Linux machine
 
 
@@ -11,7 +11,7 @@ GRN=$'\e[1;32m'
 END=$'\e[0m'
 
 help() {
-   echo "[${RED}ERROR${END}] USAGE: $0 <username>"
+   echo "[${RED}ERROR${END}] USAGE: $0 <qualified jtrace directory location>"
    exit 1
 }
 
@@ -31,8 +31,8 @@ if [[ $# -ne 1 ]]; then
     help
 fi
 
-echo "[${GRN}INFO${END}] Entering directory '/home/$1/jtrace'"
-cd /home/$1/jtrace
+echo "[${GRN}INFO${END}] Entering directory '$1'"
+cd $1
 
 echo "[${GRN}INFO${END}] Compiling jtrace executable"
 make

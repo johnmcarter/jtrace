@@ -1,7 +1,7 @@
 /*
  * John Carter
  * Created: 2022/01/19 10:16:41
- * Last modified: 2022/01/20 08:37:35
+ * Last modified: 2022/01/20 12:22:44
  */
 
 #include "jtrace.h"
@@ -67,6 +67,8 @@ std::string format_record(std::string data) {
     char d2 = '-';
     std::ostringstream os;
     std::string formatted_record = "";
+    std::cout << data << std::endl;
+    exit(1);
 
     std::vector<std::string> syscall_record = split(data, d1);
 
