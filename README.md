@@ -14,6 +14,11 @@ Run jtrace to log all system calls happening on the Linux machine:
 # jtrace <output filename>
 ```
 
+Or get usage of jtrace:
+```
+# jtrace -h
+```
+
 ## Compatibility
 Last tested on Ubuntu 20.04, but should work for most Linux distributions.
 
