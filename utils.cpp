@@ -1,12 +1,14 @@
 /*
  * John Carter
  * Created: 2022/01/19 13:03:12
- * Last modified: 2022/01/19 13:43:30
+ * Last modified: 2022/01/20 21:52:34
  */
+ 
 #include <iostream>
 #include <sstream>
 #include <vector>
 #include <regex>
+
 
 std::vector<std::string> split(std::string str, char delimiter) {
     std::vector<std::string> result;
