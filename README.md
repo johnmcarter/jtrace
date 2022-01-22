@@ -19,8 +19,14 @@ Or get usage of jtrace:
 # jtrace -h
 ```
 
+## Removal
+To remove jtrace, as superuser, run ```uninstall.sh``` in the install directory with this command:
+```
+# ./uninstall.sh
+```
+
 ## Compatibility
-Last tested on Ubuntu 20.04, but should work for most Linux distributions.
+Last tested on Ubuntu 20.04 and Raspberry Pi OS (Nov. 2021) but should work for most Linux distributions.
 
 
 ## How It Works
