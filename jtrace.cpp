@@ -13,42 +13,18 @@ void read_trace(std::string output_file) {
 
     while (trace_pipe_stream.is_open() && !trace_pipe_stream.eof() ) {
         std::getline(trace_pipe_stream, data);
-        write_trace(output_file, data);
+	    write_trace(output_file, data);
     }
     
 }
 
 
 void write_trace(std::string output_file, std::string data) {
-    // Write a well-formed trace to the output stream
+    // Write a trace to the output stream
 
     output_stream.open(output_file, std::fstream::out | std::fstream::app);
-    output_stream << format_record(data) << "\n";
+    output_stream << data << "\n";
     output_stream.close();
-
-}
-
-
-std::string format_record(std::string data) {
-    // Prints syscall record to file in format:
-    // PROCESS_NAME | PID | TIMESTAMP | SYSCALL_NUMBER
-    char d1 = ' ';
-    char d2 = '-';
-    std::ostringstream os;
-
-    std::vector<std::string> syscall_record = split(data, d1);
-
-    if (syscall_record.size() == 13) {
-        std::vector<std::string> name_and_pid = split(syscall_record.at(0), d2);
-        std::string timestamp = syscall_record.at(3);
-        std::string number = syscall_record.at(6);
-        timestamp.erase(std::remove(timestamp.begin(), timestamp.end(), ':'), timestamp.end());
-
-        os << name_and_pid.at(0) << "," << name_and_pid.at(1) << "," << timestamp << "," << number;
-        return os.str();
-    } else {
-        return "ERROR: " + data;
-    }
 
 }
 

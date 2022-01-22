@@ -7,8 +7,8 @@
 
 all:  jtrace
 	
-jtrace: jtrace.cpp utils.cpp
-	g++ -Wall jtrace.cpp utils.cpp -o jtrace
+jtrace: jtrace.cpp 
+	g++ -Wall jtrace.cpp -o jtrace
 
 clean: 
 	rm jtrace

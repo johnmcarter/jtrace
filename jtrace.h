@@ -40,5 +40,3 @@ const std::string info = "[\033[32mINFO\033[0m] ";
 void read_trace(std::string output_file);
 void write_trace(std::string output_file, std::string data);
 void print_usage();
-std::string format_record(std::string data);
-std::vector<std::string> split(std::string str, char delimiter);
