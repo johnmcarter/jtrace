@@ -41,7 +41,7 @@ echo "[${GRN}INFO${END}] Installing jtrace as an executable script in /usr/bin"
 cat > /usr/bin/jtrace <<EOF
 #!/bin/bash
 
-/home/${1}/jtrace/jtrace \$1
+${1}/jtrace \$1
 EOF
 
 chmod +x /usr/bin/jtrace
