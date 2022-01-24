@@ -60,4 +60,4 @@ tracer: function
 Figure credits: https://embeddedbits.org/tracing-the-linux-kernel-with-ftrace/
 
 
-Last modified: 20 January 2022
+Last modified: 23 January 2022
