@@ -11,7 +11,7 @@ GRN=$'\e[1;32m'
 END=$'\e[0m'
 
 help() {
-   echo "[${RED}ERROR${END}] USAGE: $0 <qualified jtrace directory location>"
+   echo "[${RED}ERROR${END}] USAGE: $0 <qualified jtrace source code location>"
    exit 1
 }
 

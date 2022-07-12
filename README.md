@@ -1,15 +1,19 @@
 # jtrace
-A user-friendly ftrace for Linux machines
+A user-friendly ftrace for Linux machines. This tool logs all system calls happening on-device.
 
 
 ## Installation
-As superuser, run ```install.sh``` in the install directory with this command:
+As superuser, run ```install.sh``` in the scripts directory with this command:
 ```
 # ./install.sh <qualified jtrace directory location>
 ```
 
 ## Usage
-Run jtrace to log all system calls happening on the Linux machine:
+As superuser, mount the tracefs virtual filesystem and enable the function tracer using the ```setup.sh``` script in the scripts directory:
+```
+# /setup.sh
+```
+and run jtrace to log all system calls happening on the Linux machine:
 ```
 # jtrace <output filename>
 ```
@@ -20,13 +24,13 @@ Or get usage of jtrace:
 ```
 
 ## Removal
-To remove jtrace, as superuser, run ```uninstall.sh``` in the install directory with this command:
+To remove jtrace, as superuser, run ```uninstall.sh``` in the scripts directory with this command:
 ```
 # ./uninstall.sh
 ```
 
 ## Compatibility
-Last tested on Ubuntu 20.04 and Raspberry Pi OS (Nov. 2021) but should work for most Linux distributions.
+Last tested on Ubuntu 20.04 and Raspberry Pi OS (Mar. 2022) but should work for most Linux distributions.
 
 
 ## How It Works
@@ -59,5 +63,4 @@ tracer: function
 ```
 Figure credits: https://embeddedbits.org/tracing-the-linux-kernel-with-ftrace/
 
-
-Last modified: 23 January 2022
+Last modified: 12 July 2022
