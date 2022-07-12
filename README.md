@@ -11,7 +11,7 @@ As superuser, run ```install.sh``` in the scripts directory with this command:
 ## Usage
 As superuser, mount the tracefs virtual filesystem and enable the function tracer using the ```setup.sh``` script in the scripts directory:
 ```
-# /setup.sh
+# ./setup.sh
 ```
 and run jtrace to log all system calls happening on the Linux machine:
 ```
