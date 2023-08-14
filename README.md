@@ -23,6 +23,13 @@ Or get usage of jtrace:
 # jtrace -h
 ```
 
+## Troubleshooting
+The executable may need to be recompiled. If so, first remove the executable and then run ```make```:
+```
+# rm jtrace
+# make
+```
+
 ## Removal
 To remove jtrace, as superuser, run ```uninstall.sh``` in the scripts directory with this command:
 ```
@@ -63,4 +70,4 @@ tracer: function
 ```
 Figure credits: https://embeddedbits.org/tracing-the-linux-kernel-with-ftrace/
 
-Last modified: 12 July 2022
+Last modified: 14 August 2023
