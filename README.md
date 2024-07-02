@@ -37,7 +37,7 @@ To remove jtrace, as superuser, run ```uninstall.sh``` in the scripts directory 
 ```
 
 ## Compatibility
-Last tested on Ubuntu 20.04 and Raspberry Pi OS (Mar. 2022) but should work for most Linux distributions.
+Last tested on Ubuntu 20.04 and Raspberry Pi OS (Mar. 2024) but should work for most Linux distributions.
 
 
 ## How It Works
@@ -70,4 +70,4 @@ tracer: function
 ```
 Figure credits: https://embeddedbits.org/tracing-the-linux-kernel-with-ftrace/
 
-Last modified: 14 August 2023
+Last modified: 1 July 2024
